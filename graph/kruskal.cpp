@@ -28,6 +28,7 @@ int32_t main(){
         int u,v,w; cin>>u>>v>>w;
         edge.pb({u,v,w});
     }
+    for(int i=1;i<=n;++i) P[i]=i;
     sort(edge.begin(),edge.end());
     int ans=0;
     for(auto &e:edge){
