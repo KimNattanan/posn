@@ -1,17 +1,17 @@
 #
 # **normal posn2:**
 ###   _// DP //_
-  -Quick sum\
-  -Kadane\
-  -LCS\
-  -LIS || LDS\
-  -LPS\
-  -Lavenshtein\
-  -MCM\
-  -Knapsack\
-  -adhoc.\
-  -WIS\
-  -bitmask\
+    -Quick sum\
+    -Kadane\
+    -LCS\
+    -LIS || LDS\
+    -LPS\
+    -Lavenshtein\
+    -MCM\
+    -Knapsack\
+    -adhoc.\
+    -WIS\
+    -bitmask\
 ###   _// Graph //_
   -dfs_bfs\
   -DSU\
