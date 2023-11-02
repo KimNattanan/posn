@@ -1,4 +1,4 @@
-# **normal posn2:**\
+## **normal posn2:**\
   // DP //\
   1.Quick sum\
   2.Kadane\
