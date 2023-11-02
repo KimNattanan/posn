@@ -27,7 +27,7 @@
 -sweep_line\
 -sliding_window\
 -monotonic stack/queue\
--dp_on_tree
+-dp_on_tree\
 -SCC\
 -DSU_on_tree( sack )\
 -fenwick 1d/2d\
