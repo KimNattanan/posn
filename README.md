@@ -32,5 +32,5 @@
 -DSU_on_tree( sack )\
 -fenwick 1d/2d\
 -segment_tree\
--divide_conquer
+-divide_conquer\
 -Matrix_Expo
