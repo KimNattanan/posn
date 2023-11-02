@@ -15,7 +15,7 @@ void dfs0(int u){
 void dfs1(int u,int id){
     vis[u]=1;
     comp[u]=id;
-    for(auto &v:adj[u]) if(!vis[v]) dfs1(v,id);
+    for(auto &v:rev[u]) if(!vis[v]) dfs1(v,id);
 }
 
 int32_t main(){
