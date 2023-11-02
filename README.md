@@ -1,8 +1,7 @@
 #
 # **normal posn2:**
 ###   _// DP //_
-.\
-    -Quick sum\
+\    -Quick sum\
     -Kadane\
     -LCS\
     -LIS || LDS\
