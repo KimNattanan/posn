@@ -1,4 +1,4 @@
-## **normal posn2:**
+# **normal posn2:**
 ###   _// DP //_
   1.Quick sum\
   2.Kadane\
@@ -11,7 +11,7 @@
   9.adhoc.\
   10.WIS\
   11.bitmask\
-  // Graph //\
+###   _// Graph //_
   1.dfs_bfs\
   2.DSU\
   3.kruskal\
@@ -21,7 +21,7 @@
   7.floyd_warshall\
   8.topo_sort\
 \
-#**extra:**\
+# **extra:**\
   1.euler_tour\
   2.sweep_line\
   3.sliding_window\
