@@ -1,4 +1,4 @@
-**normal posn2:**\
+#**normal posn2:**\
   // DP //\
   1.Quick sum\
   2.Kadane\
@@ -21,7 +21,7 @@
   7.floyd_warshall\
   8.topo_sort\
 \
-**extra:**\
+#**extra:**\
   1.euler_tour\
   2.sweep_line\
   3.sliding_window\
