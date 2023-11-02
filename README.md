@@ -11,7 +11,7 @@
 -Knapsack\
 -adhoc.\
 -WIS\
--bitmask\
+-bitmask
 ###   _// Graph //_
 -dfs_bfs\
 -DSU\
@@ -20,7 +20,7 @@
 -dijkstra\
 -bellman_ford\
 -floyd_warshall\
--topo_sort\
+-topo_sort
 #
 # **extra:**
 -euler_tour\
