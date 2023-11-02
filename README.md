@@ -1,5 +1,5 @@
 ## **normal posn2:**\
-  // DP //\
+#   _// DP //_\
   1.Quick sum\
   2.Kadane\
   3.LCS\
