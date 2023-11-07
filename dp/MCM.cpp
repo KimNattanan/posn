@@ -9,7 +9,7 @@ using namespace std;
 
 const ll inf=1e18+7;
 
-// https://programming.in.th/tasks/codecube_025
+// https://beta.programming.in.th/tasks/codecube_025
 
 ll a[605],sum[605][605],dp[605][605];
 
