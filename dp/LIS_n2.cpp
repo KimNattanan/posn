@@ -2,10 +2,10 @@
 using namespace std;
 #define endl '\n'
 #define pb push_back
-#define pii pair<int,int>
+using ll=long long;
+using pii=pair<int,int>;
 #define f first
 #define s second
-#define ll long long
 
 int a[5005];
 int dp[5005];
