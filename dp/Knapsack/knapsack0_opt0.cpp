@@ -16,6 +16,9 @@ int main(){
     int n,k; cin>>n>>k;
     for(int i=1;i<=n;++i) cin>>w[i]>>val[i];
     
+    dp[0][0]=0;
+    for(int j=1;j<=k;++j) dp[0][j]=-1e9;
+
     for(int i=1;i<=n;++i){
         int now=i%2,prev=1-now;
         for(int j=1;j<=k;++j){
