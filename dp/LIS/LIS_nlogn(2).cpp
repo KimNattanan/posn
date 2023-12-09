@@ -13,6 +13,7 @@ vector<int> LIS(vector<int> &vec){
     dp[id]=e;
     temp[id].eb(e);
   }
+  
   int now=temp[sz-1][0];
   vector<int> ret;
   ret.eb(now);
