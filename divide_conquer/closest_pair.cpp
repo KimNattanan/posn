@@ -28,7 +28,7 @@ double play(vector<pii> &vec){
     }
     sort(M.begin(),M.end(),cmpY);
     for(int i=0;i<M.size();++i){
-        for(int j=0;j<M.size();++j){
+        for(int j=i+1;j<M.size();++j){
             if(M[j].s-M[i].s>=d) break;
             d=min(d,f(M[i],M[j]));
         }
