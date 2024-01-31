@@ -1,5 +1,5 @@
 #
-# **normal posn2:**
+# **posn2:**
 ###   _// DP //_
 -Quick sum\
 -Kadane\
