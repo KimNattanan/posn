@@ -1,11 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define endl '\n'
-#define pb push_back
-using ll=long long;
 using pii=pair<int,int>;
 #define f first
 #define s second
+#define pb push_back
 
 vector<pii> adj[100005];
 struct A{
@@ -14,9 +13,25 @@ struct A{
         return w>o.w;
     }
 };
+priority_queue<A> pq;
 int dist[100005];
 
-int32_t main(){
+void dijk(int d[]){
+    while(!pq.empty()){
+        int u=pq.top().u;
+        int w=pq.top().w;
+        pq.pop();
+        if(d[u]<w) continue;
+        for(auto &vw:adj[u]){
+            if(d[vw.f]>w+vw.s){
+                d[vw.f]=w+vw.s;
+                pq.push({vw.f,d[vw.f]});
+            }
+        }
+    }
+}
+
+int main(){
     ios::sync_with_stdio(false); cin.tie(0);
 
     int n,m; cin>>n>>m;
@@ -26,25 +41,12 @@ int32_t main(){
         adj[v].pb({u,w});
     }
     int S,T; cin>>S>>T;
-    priority_queue<A> pq;
-    pq.push({S,0});
+    
     memset(dist,0x3f,sizeof dist);
     dist[S]=0;
-    while(!pq.empty()){
-        int u=pq.top().u;
-        int w=pq.top().w;
-        pq.pop();
-        for(auto &vw:adj[u]){
-            if(dist[vw.f]>w+vw.s){
-                dist[vw.f]=w+vw.s;
-                pq.push({vw.f,w+vw.s});
-            }
-        }
-    }
+    pq.push({S,0}),dijk(dist);
+
     cout<<dist[T]<<endl;
 
     return 0;
 }
-/*
-
-*/
