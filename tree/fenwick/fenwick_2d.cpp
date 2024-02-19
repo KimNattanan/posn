@@ -1,16 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define endl '\n'
-using ll=long long;
 
 struct fenwick2d{
     vector<vector<int>> bit;
     int n,m;
+    fenwick2d(int n_=0,int m_=0){init(n_,m_);}
     void init(int n_,int m_){
         n=n_,m=m_;
         bit=vector<vector<int>>(n,vector<int>(m));
     }
-    void add(int i_,int j_,int x){
+    void upd(int i_,int j_,int x){
         for(int i=i_;i<n;i+=i&-i){
             for(int j=j_;j<m;j+=j&-j) bit[i][j]+=x;
         }
@@ -22,7 +21,10 @@ struct fenwick2d{
         }
         return res;
     }
-    int qr2(int i0,int j0,int i1,int j1){
+    void upd(int i0,int j0,int i1,int j1,int x){
+        upd(i0,j0,x),upd(i0,j1+1,-x),upd(i1+1,j0,-x),upd(i1+1,j1+1,x);
+    }
+    int qr(int i0,int j0,int i1,int j1){
         return qr(i1,j1)-qr(i1,j0-1)-qr(i0-1,j1)+qr(i0-1,j0-1);
     }
 };
