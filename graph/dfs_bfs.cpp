@@ -33,7 +33,7 @@ int32_t main(){
     ios::sync_with_stdio(false); cin.tie(0);
 
     int n,m; cin>>n>>m;
-    for(int i=0;i<n-1;++i){
+    for(int i=0;i<m;++i){
         int u,v; cin>>u>>v;
         adj[u].pb(v);
         adj[v].pb(u);
