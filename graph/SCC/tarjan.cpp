@@ -18,7 +18,7 @@ void dfs(int u){
     inst[u]=1;
     for(auto &v:adj[u]){
         if(!disc[v]) dfs(v),low[u]=min(low[u],low[v]);
-        else if(inst[v]) low[u]=min(low[u],low[v]);
+        else if(inst[v]) low[u]=min(low[u],disc[v]);
     }
     if(low[u]==disc[u]){
         comp[u]=++id1;
