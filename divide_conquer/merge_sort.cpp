@@ -3,8 +3,8 @@ using namespace std;
 
 int a[200005],a_[200005];
 
-ll merge_sort(int l,int r){
-  if(l==r) return 0;
+void merge_sort(int l,int r){
+  if(l==r) return;
   int mid=l+r>>1;
   merge_sort(l,mid), merge_sort(mid+1,r);
   for(int il=l, ir=mid+1, i=l; i<=r;){
