@@ -1,49 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define endl '\n'
-#define pb push_back
-using ll=long long;
-using pii=pair<int,int>;
-#define f first
-#define s second
+#define eb emplace_back
 
-int a[100005];
-int temp[100005];
-int dp[100005];  // LIS[1..i]
-int dp2[100005]; // LIS[1..i] including a[i]
+int a[100005],dp[100005],dp2[100005],lis[100005];
+vector<int> hist[100005];
 
-int32_t main(){
-    ios::sync_with_stdio(false); cin.tie(0);
+int main(){
+  ios::sync_with_stdio(false); cin.tie(0);
 
-    int n; cin>>n;
-    for(int i=1;i<=n;++i) cin>>a[i];
-
-
-    // Increasing
-    int cnt=0;
-    for(int i=1;i<=n;++i){
-        int idx=lower_bound(temp,temp+cnt,a[i])-temp;
-        if(idx==cnt) ++cnt;
-        temp[idx]=a[i];
-
-        dp[i]=cnt;
-        dp2[i]=idx+1;
-
+  int n; cin>>n;
+  for(int i=1;i<=n;++i) cin>>a[i];
+  int sz=0;
+  for(int i=1;i<=n;++i){
+    int id=lower_bound(dp,dp+sz,a[i])-dp;     // a[l] < a[r]
+    // int id=upper_bound(dp,dp+sz,a[i])-dp;  // a[l] <= a[r]
+    if(id==sz) ++sz;
+    dp[id]=a[i];
+    dp2[i]=sz;
+    hist[id].eb(a[i]);
+  }
+  lis[sz-1]=hist[sz-1][0];
+  for(int i=sz-2;i>=0;--i){
+    for(auto &e:hist[i]){
+      if(e<lis[i+1]){
+        lis[i]=e;
+        break;
+      }
     }
-
-
-    // Non-Decreasing
-    int cnt=0;
-    for(int i=1;i<=n;++i){
-        int idx=upper_bound(temp,temp+cnt,a[i])-temp;
-        if(idx==cnt) ++cnt;
-        temp[idx]=a[i];
-
-        dp[i]=cnt;
-        dp2[i]=idx+1;
-
-    }
-
-
-    return 0;
+  }
+  cout<<sz<<'\n';
+  for(int i=0;i<sz;++i) cout<<lis[i]<<" ";
 }
