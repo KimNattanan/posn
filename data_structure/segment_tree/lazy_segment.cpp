@@ -48,4 +48,14 @@ struct Segment{
     return calc(qr(i<<1,il,mid,l,r), qr(i<<1|1,mid+1,ir,l,r));
   }
   A qr(int l,int r){ return qr(1,l0,r0,l,r); }
+  int ub(int i,int il,int ir,ll x){
+    flush(i,il,ir);
+    if(t[i][0]<=x) return ir+1;
+    if(il==ir) return il;
+    int mid=il+ir>>1;
+    flush(i<<1,il,mid);
+    if(t[i<<1][0]>x) return ub(i<<1,il,mid,x);
+    return ub(i<<1|1,mid+1,ir,x-t[i<<1][0]);
+  }
+  int ub(ll x){ return ub(1,l0,r0,x); }
 }t;
