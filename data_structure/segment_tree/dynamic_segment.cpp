@@ -30,4 +30,11 @@ struct Segment{
     if(l<=il&&ir<=r) return t;
     return calc(ch[0].qr(l,r),ch[1].qr(l,r));
   }
+  int ub(ll x){
+    flush();
+    if(t[0]<=x) return ir+1;
+    if(il==ir) return il;
+    if(ch[0].t[0]>x) return ch[0].ub(x);
+    return ch[1].ub(x);
+  }
 }t;
