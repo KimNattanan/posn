@@ -38,6 +38,7 @@ struct Segment{
   int ub(ll x){
     flush();
     if(t[0]<=x) return ir+1;
+    if(il==ir) return il;
     ch[0].flush();
     if(ch[0].t[0]>x) return ch[0].ub(x);
     return ch[1].ub(x-ch[0].t[0]);
