@@ -6,6 +6,7 @@ vector<pair<int,ll>> adj[100005];
 ll d[100005];
 using A=pair<ll,int>;
 priority_queue<A,vector<A>,greater<A>> pq;
+int p[100005]; // path, shortest-path tree
 
 void dijk(){
   while(!pq.empty()){
@@ -14,6 +15,7 @@ void dijk(){
     for(auto &[v,vw]:adj[u]) if(d[v]>w+vw){
       d[v]=w+vw;
       pq.emplace(d[v],v);
+      p[v]=u;
     }
   }
 }
