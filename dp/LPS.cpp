@@ -1,33 +1,17 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define endl '\n'
-#define pb push_back
-using ll=long long;
-using pii=pair<int,int>;
-#define f first
-#define s second
+#define sz(x) (int)x.size()
 
-bool dp[5005][5005]; // s[i..j] is palindrome?
+bool dp[2005][2005];
 
-int32_t main(){
-    ios::sync_with_stdio(false); cin.tie(0);
+int main(){
+  ios::sync_with_stdio(false); cin.tie(0);
 
-    string s; cin>>s;
-    int n=s.length();
-    s=" "+s;
-    
-    // Substring
-    for(int k=1;k<=n;++k){
-        for(int i=1,j=k;j<=n;++i,++j){
-            if(k==1) dp[i][j]=1;
-            else if(k==2) dp[i][j]=(s[i]==s[j]);
-            else if(s[i]==s[j]&&dp[i+1][j-1]) dp[i][j]=1;
-        }
+  string s; cin>>s;
+  for(int i=1;i<=sz(s);++i) dp[i][i]=1;
+  for(int k=2;k<=sz(s);++k){
+    for(int l=0,r=k-1;r<=sz(s);++l,++r){
+      dp[l][r] = (s[l]==s[r] && (k==2 || dp[l+1][r-1]));
     }
-
-
-    // Subsequence == LCS(s,s'), s'=reverse(s)
-
-
-    return 0;
+  }
 }
