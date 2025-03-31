@@ -1,40 +1,27 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define endl '\n'
-#define pb push_back
 using ll=long long;
-using pii=pair<int,int>;
-#define f first
-#define s second
-
-const ll inf=1e18+7;
 
 // https://beta.programming.in.th/tasks/codecube_025
 
-ll a[605],sum[605][605],dp[605][605];
+ll a[605],qs[605],dp[605][605];
 
-int32_t main(){
-    ios::sync_with_stdio(false); cin.tie(0);
+int main(){
+  ios::sync_with_stdio(false); cin.tie(0);
 
-    int n; cin>>n;
-    for(int i=1;i<=n;++i) cin>>a[i];
-    for(int i=1;i<=n;++i){
-        sum[i][i]=a[i];
-        for(int j=i+1;j<=n;++j) sum[i][j]=sum[i][j-1]+a[j];
-    }
-    for(int k=1;k<=n;++k){
-        for(int i=1,j=k;j<=n;++i,++j){
-            if(k==1) dp[i][j]=0;
-            else{
-                dp[i][j]=0;
-                for(int mid=i;mid<j;++mid){
-                    dp[i][j]=max(dp[i][j],dp[i][mid]+dp[mid+1][j]
-                                          +sum[i][mid]+sum[mid+1][j]+min(sum[i][mid],sum[mid+1][j]));
-                }
-            }
+  int n; cin>>n;
+  for(int i=1;i<=n;++i) cin>>a[i], qs[i]=qs[i-1]+a[i];
+  for(int k=1;k<=n;++k){
+    for(int l=1,r=k; r<=n; ++l,++r){
+      if(k==1) dp[l][r]=0;
+      else{
+        dp[l][r]=0;
+        for(int i=l;i<r;++i){
+          ll cost = qs[r]-qs[l-1] + min(qs[i]-qs[l-1], qs[r]-qs[i]);
+          dp[l][r] = max(dp[l][r], dp[l][i]+dp[i+1][r] + cost);
         }
+      }
     }
-    cout<<dp[1][n]<<endl;
-
-    return 0;
+  }
+  cout << dp[1][n];
 }
