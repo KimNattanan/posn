@@ -51,4 +51,22 @@ struct Segment{
     return qr2(t0->l,t1->l,il,mid,l,r) + qr2(t0->r,t1->r,mid+1,ir,l,r);
   }
   ll qr2(int t0,int t1,int l,int r){ return qr2(rt[t0],rt[t1],l0,r0,l,r); }
+  int ub(pnode t,int il,int ir,ll x){
+    if(t->v[0]<=x) return ir+1;
+    if(il==ir) return il;
+    int mid=il+ir>>1;
+    ll suml = t->l->v[0];
+    if(suml>x) return ub(t->l,il,mid,x);
+    return ub(t->r,mid+1,ir, x-suml);
+  }
+  int ub(int t,ll x){ return ub(rt[t],l0,r0,x); }
+  int ub2(pnode t0,pnode t1,int il,int ir,ll x){
+    if(t1->v[0]-t0->v[0]<=x) return ir+1;
+    if(il==ir) return il;
+    int mid=il+ir>>1;
+    ll suml = t1->l->v[0] - t0->l->v[0];
+    if(suml>x) return ub2(t0->l,t1->l,il,mid,x);
+    return ub2(t0->r,t1->r,mid+1,ir,x-suml);
+  }
+  int ub2(int t0,int t1,ll x){ return ub2(rt[t0],rt[t1],l0,r0,x); }
 }t;
