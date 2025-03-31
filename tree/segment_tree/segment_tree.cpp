@@ -1,41 +1,41 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define endl '\n'
 using ll=long long;
+#define sz(x) (int)x.size()
 
-const int N=1e5;
+ll a[200005];
 
-int arr[N+5];
-
-struct segment{
-    vector<segment> child;
-    int l,r,mid;
-    int sum;
-    segment(int l_=0,int r_=0){
-        l=l_,r=r_,mid=l+(r-l>>1);
-        sum=0;
-    }
-    void build(){
-        if(l==r) return void(sum=arr[l]);
-        child.emplace_back(l,mid);
-        child.emplace_back(mid+1,r);
-        child[0].build(),child[1].build();
-        sum=child[0].sum+child[1].sum;
-    }
-    int qr(int l0,int r0){
-        if(l0<=l&&r<=r0) return sum;
-        if(l>r0||r<l0) return 0;
-        return child[0].qr(l0,r0)+child[1].qr(l0,r0);
-    }
+struct Segment{
+  using A=array<ll,3>;
+  A t[1<<19]; // lowest k  of which  2^k >= 2*n
+  int l0,r0;
+  void init(int l,int r){ l0=l, r0=r, build(1,l0,r0); }
+  A calc(A tl,A tr){
+    return {
+      tl[0] + tr[0],
+      min(tl[1], tr[1]),
+      max(tl[2], tr[2])
+    };
+  }
+  void build(int i,int il,int ir){
+    if(il==ir) return void(t[i][0]=t[i][1]=t[i][2]=a[il]);
+    int mid=il+ir>>1;
+    build(i<<1,il,mid), build(i<<1|1,mid+1,ir);
+    t[i] = calc(t[i<<1],t[i<<1|1]);
+  }
+  void upd(int i,int il,int ir,int id,ll x){
+    if(il==ir) return void(t[i][0]=t[i][1]=t[i][2]+=x);
+    int mid=il+ir>>1;
+    if(id<=mid) upd(i<<1,il,mid,id,x);
+    else upd(i<<1|1,mid+1,ir,id,x);
+    t[i] = calc(t[i<<1], t[i<<1|1]);
+  }
+  void upd(int id,ll x){ upd(1,l0,r0,id,x); }
+  A qr(int i,int il,int ir,int l,int r){
+    if(il>r||ir<l) return {0, 1e18, -1e18};
+    if(l<=il&&ir<=r) return t[i];
+    int mid=il+ir>>1;
+    return calc(qr(i<<1,il,mid,l,r), qr(i<<1|1,mid+1,ir,l,r));
+  }
+  A qr(int l,int r){ return qr(1,l0,r0,l,r); }
 }t;
-
-
-int32_t main(){
-    ios::sync_with_stdio(false); cin.tie(0);
-
-    t=segment(1,N);
-    t.build();
-    cout<<t.qr(4,10)<<endl;
-
-    return 0;
-}
