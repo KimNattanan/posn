@@ -1,19 +1,17 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define endl '\n'
+using ll=long long;
 
-int32_t main(){
-    ios::sync_with_stdio(false); cin.tie(0);
+ll a[1000005],dp[1000005];
 
-    int n; cin>>n;
-    int now0=0,now1=0,mn=1e9,mx=-1e9,sum=0;
-    for(int i=1;i<=n;++i){
-        int x; cin>>x;
-        sum+=x;
-        now0=max(now0+x,x),mx=max(mx,now0);
-        if(i>1) now1=min(now1+x,x),mn=min(mn,now1);
-    }
-    cout<<max(mx,sum-mn)<<endl;
+int main(){
+  ios::sync_with_stdio(false); cin.tie(0);
 
-    return 0;
+  int n; cin>>n;
+  for(int i=1;i<=n;++i) cin>>a[i];
+  for(int i=1;i<=n;++i) dp[i] = max(a[i], dp[i-1]+a[i]);
+  ll mn=0,mx=0,sum=0;
+  for(int i=1;i<=n;++i) mn=min(mn,dp[i]), mx=max(mx,dp[i]), sum+=a[i];
+  ll ans = max(mx, sum-mn);
+  cout << ans;
 }
