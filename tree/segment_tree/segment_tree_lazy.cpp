@@ -1,66 +1,51 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define endl '\n'
 using ll=long long;
+#define sz(x) (int)x.size()
 
-const int N=1e5;
+ll a[200005];
 
-int arr[N+5];
-
-struct segment{
-    vector<segment> child;
-    int l,r,mid,sz;
-    int sum;
-    bool call;
-    int lazy;
-    segment(int l_=0,int r_=0,int val=0){
-        l=l_,r=r_,mid=l+(r-l>>1),sz=r-l+1;
-        sum=val*sz;
-        call=lazy=0;
-    }
-    void flush(){
-        if(l!=r&&child.empty()){
-            child.emplace_back(l,mid,sum/sz);
-            child.emplace_back(mid+1,r,sum/sz);
-        }
-        if(call){
-            if(l!=r){
-                child[0].call=child[1].call=1;
-                child[0].lazy+=lazy;
-                child[1].lazy+=lazy;
-            }
-            sum+=lazy*sz;
-            lazy=call=0;
-        }
-    }
-    void upd(int l0,int r0,int x){
-        flush();
-        if(l0<=l&&r<=r0){
-            lazy=x;
-            call=1;
-            flush();
-            return;
-        }
-        if(l>r0||r<l0) return;
-        child[0].upd(l0,r0,x);
-        child[1].upd(l0,r0,x);
-        sum=child[0].sum+child[1].sum;
-    }
-    int qr(int l0,int r0){
-        flush();
-        if(l0<=l&&r<=r0) return sum;
-        if(l>r0||r<l0) return 0;
-        return child[0].qr(l0,r0)+child[1].qr(l0,r0);
-    }
+struct Segment{
+  using A=array<ll,3>;
+  A t[1<<19]; // lowest k  of which  2^k >= 2*n
+  ll lz[1<<19];
+  int l0,r0;
+  void init(int l,int r){ l0=l, r0=r, build(1,l0,r0); }
+  A calc(A tl,A tr){
+    return {
+      tl[0] + tr[0],
+      min(tl[1], tr[1]),
+      max(tl[2], tr[2])
+    };
+  }
+  void build(int i,int il,int ir){
+    if(il==ir) return void(t[i][0]=t[i][1]=t[i][2]=a[il]);
+    int mid=il+ir>>1;
+    build(i<<1,il,mid), build(i<<1|1,mid+1,ir);
+    t[i] = calc(t[i<<1],t[i<<1|1]);
+  }
+  void flush(int i,int il,int ir){
+    if(il!=ir) lz[i<<1]+=lz[i], lz[i<<1|1]+=lz[i];
+    t[i][0]+=lz[i];
+    t[i][1]+=lz[i];
+    t[i][2]+=lz[i];
+    lz[i]=0;
+  }
+  void upd(int i,int il,int ir,int l,int r,ll x){
+    flush(i,il,ir);
+    if(il>r||ir<l) return;
+    if(l<=il&&ir<=r) return lz[i]+=x, flush(i,il,ir);
+    int mid=il+ir>>1;
+    upd(i<<1,il,mid,l,r,x), upd(i<<1|1,mid+1,ir,l,r,x);
+    t[i] = calc(t[i<<1], t[i<<1|1]);
+  }
+  void upd(int l,int r,ll x){ upd(1,l0,r0,l,r,x); }
+  A qr(int i,int il,int ir,int l,int r){
+    flush(i,il,ir);
+    if(il>r||ir<l) return {0, 1e18, -1e18};
+    if(l<=il&&ir<=r) return t[i];
+    int mid=il+ir>>1;
+    return calc(qr(i<<1,il,mid,l,r), qr(i<<1|1,mid+1,ir,l,r));
+  }
+  A qr(int l,int r){ return qr(1,l0,r0,l,r); }
 }t;
-
-
-int32_t main(){
-    ios::sync_with_stdio(false); cin.tie(0);
-
-    t=segment(1,N);
-    t.upd(3,7,5);
-    cout<<t.qr(4,10)<<endl;
-
-    return 0;
-}
