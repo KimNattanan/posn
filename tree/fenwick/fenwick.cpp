@@ -1,25 +1,23 @@
 #include<bits/stdc++.h>
 using namespace std;
+using ll=long long;
+#define sz(x) (int)x.size()
 
-struct fenwick{
-    vector<int> bit;
-    fenwick(int n=0){init(n);}
-    void init(int n){bit.assign(n,0);}
-    void upd(int i,int x){
-        for(;i<bit.size();i+=i&-i) bit[i]+=x;
+struct Fenwick{
+  vector<ll> bit;
+  void init(int n){ bit.assign(n,0); }
+  void upd(int i,ll x){ for(;i<sz(bit); i+=i&-i) bit[i]+=x; }
+  ll qr(int i){
+    ll res=0;
+    for(;i>0;i-=i&-i) res+=bit[i];
+    return res;
+  }
+  int ub(ll x){ // lowest i  of which  sum(1->i) > x
+    int pos=0;
+    ll sum=0;
+    for(int i=1<<31-__builtin_clz(sz(bit));i>0;i>>=1){
+      if(pos+i<sz(bit) && sum+bit[pos+i] <= x) sum += bit[pos+=i];
     }
-    int qr(int i){
-        int ret=0;
-        for(;i>0;i-=i&-i) ret+=bit[i];
-        return ret;
-    }
-    void upd(int l,int r,int x){ upd(l,x), upd(r+1,-x); }
-    int qr(int l,int r){ return qr(r)-qr(l-1); }
-    int search(int x){
-        int sum=0,pos=0;
-        for(int i=1<<__lg(bit.size());i>0;i>>=1){
-            if(sum+bit[pos+i]<=x) pos+=i, sum+=bit[pos];
-        }
-        return pos;
-    }
-};
+    return pos+1;
+  }
+}fw;
