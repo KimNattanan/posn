@@ -1,6 +1,6 @@
-#
-# **posn2:**
-###   _// DP //_
+
+# Computer POSN
+## DP
 -Quick sum\
 -Kadane\
 -LCS\
@@ -12,7 +12,7 @@
 -adhoc.\
 -WIS\
 -bitmask
-###   _// Graph //_
+## Graph
 -dfs_bfs\
 -DSU\
 -kruskal\
@@ -21,8 +21,8 @@
 -bellman_ford\
 -floyd_warshall\
 -topo_sort
-#
-# **extra:**
+
+## Others
 -euler_tour\
 -sweep_line\
 -sliding_window\
