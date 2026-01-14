@@ -7,7 +7,7 @@ ll a[200005];
 
 struct Segment{
   using A=array<ll,3>;
-  A t[1<<19]; // lowest k  of which  2^k >= 2*n
+  A t[1<<19]; // lowest k  for which  2^k >= 2*n
   ll lz[1<<19];
   int l0,r0;
   void init(int l,int r){ l0=l, r0=r, build(1,l0,r0); }

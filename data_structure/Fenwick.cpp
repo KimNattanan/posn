@@ -12,7 +12,7 @@ struct Fenwick{
     for(;i>0;i-=i&-i) res+=bit[i];
     return res;
   }
-  int ub(ll x){ // lowest i  of which  sum(1->i) > x
+  int ub(ll x){ // lowest i  for which  sum(1->i) > x
     int pos=0;
     ll sum=0;
     for(int i=1<<31-__builtin_clz(sz(bit));i>0;i>>=1){
