@@ -1,52 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define endl '\n'
 using ll=long long;
 using pii=pair<int,int>;
 #define f first
 #define s second
-#define pb push_back
 
-double f(pii a,pii b){
-    return sqrt(1LL*(a.f-b.f)*(a.f-b.f)+1LL*(a.s-b.s)*(a.s-b.s));
+pii a[200005],a_[200005];
+
+ll f(pii a,pii b){
+    return ll(a.f-b.f)*(a.f-b.f) + ll(a.s-b.s)*(a.s-b.s);
 }
 bool cmpY(const pii &l,const pii &r){
     if(l.s!=r.s) return l.s<r.s;
     return l.f<r.f;
 }
 
-double play(vector<pii> &vec){
-    int n=vec.size();
-    if(n==2) return f(vec[0],vec[1]);
-    if(n==3) return min({f(vec[0],vec[1]),f(vec[0],vec[2]),f(vec[1],vec[2])});
-    vector<pii> L,R,M;
-    for(int i=0;i<n/2;++i) L.pb(vec[i]);
-    for(int i=n/2;i<n;++i) R.pb(vec[i]);
-    double d=min(play(L),play(R));
-    for(auto &e:vec){
-        if(abs(e.f-vec[n/2].f)<=d) M.pb(e);
+ll closest_pair(int l,int r){
+    int n=r-l+1;
+    if(n==2) return f(a[l],a[r]);
+    if(n==3) return min({f(a[l],a[l+1]), f(a[l],a[r]), f(a[l+1],a[r])});
+    int mid = l+r>>1;
+    ll d = min(closest_pair(l,mid), closest_pair(mid+1,r));
+    int m = 0;
+    for(int i=l;i<=r;++i){
+        if(abs(a[i].f - a[mid].f) <= d) a_[m++] = a[i];
     }
-    sort(M.begin(),M.end(),cmpY);
-    for(int i=0;i<M.size();++i){
-        for(int j=i+1;j<M.size();++j){
-            if(M[j].s-M[i].s>=d) break;
-            d=min(d,f(M[i],M[j]));
+    sort(a_,a_+m,cmpY);
+    for(int i=0;i<m;++i){
+        for(int j=i+1;j<m;++j){
+            if(a_[j].s - a_[i].s >= d) break;
+            d = min(d, f(a_[i],a_[j]));
         }
     }
     return d;
 }
 
-int32_t main(){
+int main(){
     ios::sync_with_stdio(false); cin.tie(0);
 
     int n; cin>>n;
-    vector<pii> vec(n);
-    for(auto &e:vec) cin>>e.f>>e.s;
-    sort(vec.begin(),vec.end());
-    cout<<play(vec)<<endl;
-
-    return 0;
+    for(int i=0;i<n;++i) cin>>a[i].f>>a[i].s;
+    sort(a,a+n);
+    cout<<closest_pair(0,n-1)<<endl;
 }
-/**
-
-*/

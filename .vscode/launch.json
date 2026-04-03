@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/kimnattanan/Desktop/cpp/posn",
+      "program": "/Users/kimnattanan/Desktop/cpp/posn/build/Debug/outDebug"
+    }
+  ]
+}
